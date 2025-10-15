@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1001,
+    "name": "Jane",
+    "dealership": 29,
+    "review": "Great service and selection.",
+    "purchase": true,
+    "purchase_date": "2024-04-15",
+    "car_make": "Honda",
+    "car_model": "Civic",
+    "car_year": 2021,
+    "sentiment": "positive",
+    "dealerId": 29
+  },
+  {
+    "id": 1002,
+    "name": "Sam",
+    "dealership": 3,
+    "review": "Good prices.",
+    "purchase": false,
+    "purchase_date": "",
+    "car_make": "",
+    "car_model": "",
+    "car_year": 0,
+    "sentiment": "neutral",
+    "dealerId": 3
+  }
+]

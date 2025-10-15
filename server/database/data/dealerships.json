@@ -1,0 +1,6 @@
+[
+  { "id": 1, "city": "Miami", "state": "Florida", "st": "FL", "address": "100 Ocean Dr", "zip": "33101", "lat": 25.7617, "long": -80.1918, "short_name": "Miami Cars", "full_name": "Miami Best Cars" },
+  { "id": 2, "city": "Austin", "state": "Texas", "st": "TX", "address": "200 Congress Ave", "zip": "73301", "lat": 30.2672, "long": -97.7431, "short_name": "Austin Cars", "full_name": "Austin Best Cars" },
+  { "id": 3, "city": "Wichita", "state": "Kansas", "st": "KS", "address": "300 Douglas Ave", "zip": "67201", "lat": 37.6872, "long": -97.3301, "short_name": "Wichita Cars", "full_name": "Wichita Best Cars" },
+  { "id": 29, "city": "Overland Park", "state": "Kansas", "st": "KS", "address": "400 Metcalf Ave", "zip": "66212", "lat": 38.9822, "long": -94.6708, "short_name": "OP Cars", "full_name": "Overland Park Best Cars" }
+]

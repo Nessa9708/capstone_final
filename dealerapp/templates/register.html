@@ -1,0 +1,13 @@
+<!doctype html><html><body>
+<h2>SignUp</h2>
+{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+<form method="post">{% csrf_token %}
+  <div><input name="first_name" placeholder="First Name"></div>
+  <div><input name="last_name"  placeholder="Last Name"></div>
+  <div><input name="email"      placeholder="email"></div>
+  <div><input name="username"   placeholder="Username"></div>
+  <div><input name="password"   type="password" placeholder="Password"></div>
+  <button type="submit">Register</button>
+</form>
+<p><a href="/">Home</a></p>
+</body></html>
