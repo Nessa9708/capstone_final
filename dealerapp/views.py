@@ -87,13 +87,15 @@ def get_cars(request):
     return JsonResponse({"CarModels": cars})
 
 def get_dealerships(request, state="All"):
-    """
-    GET /get_dealers/            -> all dealers
-    GET /get_dealers/<state>/    -> dealers by state
-    """
-    endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/state/{state}"
-    dealerships = get_request(endpoint)
-    return JsonResponse({"status": 200, "dealers": dealerships}, safe=False)
+    # If a query param was used (?state=Texas), prefer that over path param
+    qp_state = request.GET.get("state")
+    if qp_state:  # e.g. /get_dealers/?state=Texas
+        state = qp_state
+
+    endpoint = "/fetchDealers" if state in (None, "", "All") else f"/fetchDealers/{state}"
+    data = get_request(endpoint) or []
+    return JsonResponse({"status": 200, "dealers": data})
+
 
 def get_dealer_details(request, dealer_id: int):
     """GET /dealer/<dealer_id>/"""
