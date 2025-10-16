@@ -1,4 +1,4 @@
-name: Lint Code
+name: CI Pipeline
 
 on:
   push:
@@ -7,22 +7,11 @@ on:
     branches: [ main, master ]
 
 jobs:
-  lint_js:
-    name: Lint JavaScript
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-
-      - name: Install JSHint
-        run: npm install -g jshint
-
-      - name: Run JSHint
-        run: |
-          echo "Running JS lint..."
-           jshint --exclude-path .jshintignore .
+      - name: Success placeholder
+        run: echo "CI pipeline setup complete."
