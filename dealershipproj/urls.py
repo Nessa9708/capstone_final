@@ -1,6 +1,7 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
+from siteapp import urls as site_urls
 from vehicles.views import get_cars  # <-- import the ONLY custom view we need here
 
 urlpatterns = [
@@ -13,4 +14,6 @@ urlpatterns = [
 
     # API for Module 3 Part B
     path('get_cars/', get_cars, name='get_cars'),
+    path('', include('siteapp.urls')),        # your static pages
+    path('', include('dealerapp.urls')),  
 ]

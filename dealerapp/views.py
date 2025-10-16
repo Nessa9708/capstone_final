@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
 from .populate import initiate
 from django.http import JsonResponse
+from .restapis import get_request, analyze_review_sentiments, post_review
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 def login_user(request):
     if request.method == "GET":
@@ -26,6 +29,12 @@ def logout_user(request):
         <script>alert("Logging out {uname}..."); window.location="/";</script>
         </body></html>
     """)
+
+def get_dealers(request, state='All'):
+    """Proxy to fetch all dealers or by state."""
+    endpoint = "/fetchDealers" if state == 'All' else f"/fetchDealers/state/{state}"
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status": 200, "dealers": dealerships}, safe=False)
 
 @csrf_exempt
 def register_user(request):
@@ -76,3 +85,42 @@ def get_cars(request):
             "dealerId": cm.dealer_id,
         })
     return JsonResponse({"CarModels": cars})
+
+def get_dealerships(request, state="All"):
+    """
+    GET /get_dealers/            -> all dealers
+    GET /get_dealers/<state>/    -> dealers by state
+    """
+    endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/state/{state}"
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status": 200, "dealers": dealerships}, safe=False)
+
+def get_dealer_details(request, dealer_id: int):
+    """GET /dealer/<dealer_id>/"""
+    dealer = get_request(f"/fetchDealer/{dealer_id}")
+    return JsonResponse({"status": 200, "dealer": dealer}, safe=False)
+
+def get_dealer_reviews(request, dealer_id: int):
+    """GET /reviews/<dealer_id>/ (with sentiment)"""
+    reviews = get_request(f"/fetchReviews/dealer/{dealer_id}")
+    # enrich with sentiment
+    for r in reviews if isinstance(reviews, list) else []:
+        text = r.get("review", "")
+        r["sentiment"] = analyze_review_sentiments(text) if text else "neutral"
+    return JsonResponse({"status": 200, "reviews": reviews}, safe=False)
+
+@csrf_exempt
+def add_review(request):
+    if request.user.is_anonymous is False:
+        data = json.loads(request.body)
+        try:
+            response = post_review(data)
+            return JsonResponse({"status": 200})
+        except:
+            return JsonResponse({"status": 401, "message": "Error in posting review"})
+    else:
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
+
+        
+    
+    
