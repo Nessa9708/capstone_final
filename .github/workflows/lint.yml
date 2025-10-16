@@ -25,4 +25,4 @@ jobs:
       - name: Run JSHint
         run: |
           echo "Running JS lint..."
-          find . -type f -name "*.js" -not -path "./node_modules/*" -exec jshint {} +
+           jshint --exclude-path .jshintignore .
