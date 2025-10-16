@@ -1,4 +1,5 @@
-﻿{
+@'
+{
   "esversion": 11,
   "browser": true,
   "node": true,
@@ -6,3 +7,4 @@
   "unused": false,
   "asi": true
 }
+'@ | Set-Content -Encoding UTF8 .jshintrc
